@@ -11,7 +11,8 @@
 "use strict";
 
 const Curation = require("./curation"),
-  Order = require("./order"),
+  Order = require( "./order" ),
+  Checklist = require("./checklist"),
   Response = require("./response"),
   Care = require("./care"),
   Survey = require("./survey"),
@@ -85,9 +86,9 @@ module.exports = class Receive {
 
     if (message.includes("start over") || message.includes("get started")) {
       response = Response.genNuxMessage(this.user);
-    } else if (Number(message)) {
+    // } else if (Number(message)) {
       // Assume numeric input ("123") to be an order number
-      response = Order.handlePayload("ORDER_NUMBER");
+      // response = Order.handlePayload("ORDER_NUMBER");
     } else if (message.includes("#")) {
       // Input with # is treated as a suggestion
       response = Survey.handlePayload("CSAT_SUGGESTION");
@@ -101,21 +102,27 @@ module.exports = class Receive {
             message: this.webhookEvent.message.text
           })
         ),
-        Response.genText(i18n.__("get_started.guidance")),
-        Response.genQuickReply(i18n.__("get_started.help"), [
+        // Response.genText(i18n.__("get_started.guidance")),
+        // Response.genQuickReply(i18n.__("get_started.help"), [
+        //   {
+        //     title: i18n.__("menu.suggestion"),
+        //     payload: "CURATION"
+        //   },
+        //   {
+        //     title: i18n.__("menu.help"),
+        //     payload: "CARE_HELP"
+        //   },
+        //   {
+        //     title: i18n.__("menu.start_over"),
+        //     payload: "GET_STARTED"
+        //   }
+        // ])
+        Response.genQuickReply(i18n.__("get_started.choose_start"), [
           {
-            title: i18n.__("menu.suggestion"),
-            payload: "CURATION"
+            title: i18n.__("menu.start"),
+            payload: "GET_CHECKLIST"
           },
-          {
-            title: i18n.__("menu.help"),
-            payload: "CARE_HELP"
-          },
-          {
-            title: i18n.__("menu.start_over"),
-            payload: "GET_STARTED"
-          }
-        ])
+        ], 500)
       ];
     }
 
@@ -193,8 +200,11 @@ module.exports = class Receive {
     } else if (payload.includes("CARE")) {
       let care = new Care(this.user, this.webhookEvent);
       response = care.handlePayload(payload);
-    } else if (payload.includes("ORDER")) {
-      response = Order.handlePayload(payload);
+    } else if ( payload.includes( "ORDER" ) ) {
+      response = Order.handlePayload( payload );
+    } else if ( payload.includes( "CHECKLIST" ) ) {
+      let checklist = new Checklist(this.user, this.webhookEvent);
+      response = checklist.handlePayload(payload);
     } else if (payload.includes("CSAT")) {
       response = Survey.handlePayload(payload);
     } else {

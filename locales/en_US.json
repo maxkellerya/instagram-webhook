@@ -8,7 +8,8 @@
 		"help": "Reach Product Expert",
 		"suggestion": "New Products",
 		"shop": "Shop now",
-		"start_over": "Start over"
+		"start_over": "Start over",
+		"start": "Start"
 	},
 	"private_reply": {
 		"post": "Thanks for liking our post! This is as far as the demo goes. In a production experience, this message would come from a human agent. See https://fb.me/get-sample-oc-ig to learn how to build a similar experience."
@@ -16,7 +17,9 @@
 	"get_started": {
 		"welcome": "Hi {{userName}}! Welcome to Original Coast Clothing where you'll find styles for every occasion.",
 		"guidance": "At any time, use the menu below to navigate through the features",
-		"help": "What we can do to help you today?"
+		"help": "What we can do to help you today?",
+		"choose_start": "Please, click a start!",
+		"checklist_init": "Hello {{userName}}. Please, click a get checklist!"
 	},
 	"curation": {
 		"prompt": "Hello {{userName}}, we have some exciting new products out, which product line do you want to learn more about?",
@@ -58,7 +61,12 @@
 		"suggestion": "Your suggestion has been recorded for future review by the team. If this is something we need to get back to you right now just comment \"help\""
 	},
 	"fallback": {
-		"any": "Sorry, but I don’t recognize \"{{message}}\".",
+		"any": "I don’t understand \"{{message}}\".",
 		"attachment": "Thanks for sending this attachment, we can connect you to an agent to review it or we can start over"
+	},
+	"checklist": {
+		"get": "Get checklist",
+		"content": "https://docs.google.com/document/d/1BsO28ItjgeE64eb3DG6yvUYhWHNsaMx2N98D5qfePFE",
+		"thanks": "Thank you 😁"
 	}
 }
